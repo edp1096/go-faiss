@@ -1,6 +1,6 @@
 .vscode
 build/
-dist/
+# dist/
 vendors/*
 !vendors/.gitkeep
 /output.log
