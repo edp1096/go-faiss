@@ -65,6 +65,15 @@ cmake --build . --config Release --target faiss_c -j $threadCount
 cd ..
 
 
+copy-item -force vendors/openblas/bin/libopenblas.dll ./libopenblas.exp.dll
+copy-item -force build/faiss/Release/faiss.dll .
+copy-item -force build/c_api/Release/faiss_c.dll ./faiss_c_cu.dll
+
+gendef faiss_c_cu.dll
+(Get-Content -Path "faiss_c_cu.def") -replace "faiss_c.dll", "faiss_c_cu.dll" | Set-Content -Path "faiss_c_cu.def"
+dlltool -k -d ./faiss_c_cu.def -l ./libfaiss_c_cu.a
+# ar src libfaiss_c_cu.a libfaiss_c_cu.a
+
 $endTime = Get-Date
 $elapsedTime = $endTime - $startTime
 Write-Host "Elapsed Time: $elapsedTime"
