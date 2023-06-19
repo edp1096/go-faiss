@@ -51,6 +51,12 @@ func main() {
 	fmt.Println("dists:", dists)
 	fmt.Println("labels:", labels)
 }
+
+/* 
+hello.exe
+dists: [1.1600001 1.3000003]
+labels: [3 0]
+ */
 ```
 
 * Build
