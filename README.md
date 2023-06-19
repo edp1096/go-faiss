@@ -1,6 +1,6 @@
 Modification for windows.
 
-RTX30 series, CUDA12.1 only
+For GPU, RTX30 series and CUDA12.1 only
 
 ## Usage
 
