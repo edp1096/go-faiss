@@ -52,6 +52,7 @@ func main() {
 ```
 
 * Build
+    * Require dll files in [`dist`](/dist) folder
 ```powershell
 go build # cpu
 # or
