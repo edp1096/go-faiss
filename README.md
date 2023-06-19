@@ -1,4 +1,6 @@
-Modification for windows
+Modification for windows.
+
+RTX30 series, CUDA12.1 only
 
 ## Usage
 
