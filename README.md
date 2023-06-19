@@ -1,3 +1,6 @@
+
+----
+
 # go-faiss
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/DataIntelligenceCrew/go-faiss.svg)](https://pkg.go.dev/github.com/DataIntelligenceCrew/go-faiss)
