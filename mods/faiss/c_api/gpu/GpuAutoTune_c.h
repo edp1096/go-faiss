@@ -23,17 +23,17 @@ extern "C" {
 #endif
 
 /// converts any GPU index inside gpu_index to a CPU index
-int faiss_index_gpu_to_cpu(const FaissIndex* gpu_index, FaissIndex** p_out);
+FAISS_C_API int faiss_index_gpu_to_cpu(const FaissIndex* gpu_index, FaissIndex** p_out);
 
 /// converts any CPU index that can be converted to GPU
-int faiss_index_cpu_to_gpu(
+FAISS_C_API int faiss_index_cpu_to_gpu(
         FaissGpuResourcesProvider* provider,
         int device,
         const FaissIndex* index,
         FaissGpuIndex** p_out);
 
 /// converts any CPU index that can be converted to GPU
-int faiss_index_cpu_to_gpu_with_options(
+FAISS_C_API int faiss_index_cpu_to_gpu_with_options(
         FaissGpuResourcesProvider* provider,
         int device,
         const FaissIndex* index,
@@ -41,7 +41,7 @@ int faiss_index_cpu_to_gpu_with_options(
         FaissGpuIndex** p_out);
 
 /// converts any CPU index that can be converted to GPU
-int faiss_index_cpu_to_gpu_multiple(
+FAISS_C_API int faiss_index_cpu_to_gpu_multiple(
         FaissGpuResourcesProvider* const* providers_vec,
         const int* devices,
         size_t devices_size,
@@ -49,7 +49,7 @@ int faiss_index_cpu_to_gpu_multiple(
         FaissGpuIndex** p_out);
 
 /// converts any CPU index that can be converted to GPU
-int faiss_index_cpu_to_gpu_multiple_with_options(
+FAISS_C_API int faiss_index_cpu_to_gpu_multiple_with_options(
         FaissGpuResourcesProvider* const* providers_vec,
         size_t providers_vec_size,
         const int* devices,

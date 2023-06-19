@@ -14,28 +14,28 @@
 
 #undef DEFINE_GETTER
 #define DEFINE_GETTER(clazz, ty, name)                                  \
-    ty faiss_##clazz##_##name(const Faiss##clazz* obj) {                \
+    FAISS_C_API ty faiss_##clazz##_##name(const Faiss##clazz* obj) {                \
         return static_cast<ty>(                                         \
                 reinterpret_cast<const faiss::gpu::clazz*>(obj)->name); \
     }
 
 #undef DEFINE_SETTER
-#define DEFINE_SETTER(clazz, ty, name)                           \
-    void faiss_##clazz##_set_##name(Faiss##clazz* obj, ty val) { \
-        reinterpret_cast<faiss::gpu::clazz*>(obj)->name = val;   \
+#define DEFINE_SETTER(clazz, ty, name)                                       \
+    FAISS_C_API void faiss_##clazz##_set_##name(Faiss##clazz* obj, ty val) { \
+        reinterpret_cast<faiss::gpu::clazz*>(obj)->name = val;               \
     }
 
 #undef DEFINE_SETTER_STATIC
 #define DEFINE_SETTER_STATIC(clazz, ty_to, ty_from, name)             \
-    void faiss_##clazz##_set_##name(Faiss##clazz* obj, ty_from val) { \
+    FAISS_C_API void faiss_##clazz##_set_##name(Faiss##clazz* obj, ty_from val) { \
         reinterpret_cast<faiss::gpu::clazz*>(obj)->name =             \
                 static_cast<ty_to>(val);                              \
     }
 
 #undef DEFINE_DESTRUCTOR
-#define DEFINE_DESTRUCTOR(clazz)                          \
-    void faiss_##clazz##_free(Faiss##clazz* obj) {        \
-        delete reinterpret_cast<faiss::gpu::clazz*>(obj); \
+#define DEFINE_DESTRUCTOR(clazz)                               \
+    FAISS_C_API void faiss_##clazz##_free(Faiss##clazz* obj) { \
+        delete reinterpret_cast<faiss::gpu::clazz*>(obj);      \
     }
 
 #endif
