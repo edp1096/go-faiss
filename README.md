@@ -4,7 +4,7 @@ RTX30 series, CUDA12.1 only
 
 ## Usage
 
-* Example
+* [Example](/dist/hello)
 ```go
 package main
 
