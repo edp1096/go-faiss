@@ -1,5 +1,9 @@
 .vscode
 build/
+dist/
 vendors/*
 !vendors/.gitkeep
 /output.log
+
+/*.dll
+/*.def

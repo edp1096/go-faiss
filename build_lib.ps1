@@ -1,5 +1,14 @@
-$useGPU = "ON"
+$useGPU = "OFF"
 $threadCount = 8
+
+
+$libName = "faiss_c"
+# $cudaArch = "61-real;75-real;86-real;89-real"
+$cudaArch = "86-real"
+if ($args[0] -eq "cuda") {
+    $useGPU = "ON"
+    $libName = "faiss_c_cuda"
+}
 
 $startTime = Get-Date
 
@@ -67,12 +76,12 @@ cd ..
 
 copy-item -force vendors/openblas/bin/libopenblas.dll ./libopenblas.exp.dll
 copy-item -force build/faiss/Release/faiss.dll .
-copy-item -force build/c_api/Release/faiss_c.dll ./faiss_c_cu.dll
+copy-item -force build/c_api/Release/faiss_c.dll ./$libName.dll
 
-gendef faiss_c_cu.dll
-(Get-Content -Path "faiss_c_cu.def") -replace "faiss_c.dll", "faiss_c_cu.dll" | Set-Content -Path "faiss_c_cu.def"
-dlltool -k -d ./faiss_c_cu.def -l ./libfaiss_c_cu.a
-# ar src libfaiss_c_cu.a libfaiss_c_cu.a
+gendef "$libName.dll"
+(Get-Content -Path "$libName.def") -replace "faiss_c.dll", "$libName.dll" | Set-Content -Path "$libName.def"
+dlltool -k -d ./$libName.def -l ./lib$libName.a
+# ar src lib$libName.a lib$libName.a
 
 $endTime = Get-Date
 $elapsedTime = $endTime - $startTime

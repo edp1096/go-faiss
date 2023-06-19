@@ -1,8 +1,6 @@
 package faiss
 
-/*
-#include <faiss/c_api/impl/AuxIndexStructures_c.h>
-*/
+// #include <faiss/c_api/impl/AuxIndexStructures_c.h>
 import "C"
 
 // IDSelector represents a set of IDs to remove.

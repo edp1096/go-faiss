@@ -14,27 +14,13 @@ import "unsafe"
 // Note that some index implementations do not support all methods.
 // Check the Faiss wiki to see what operations an index supports.
 type Index interface {
-	// D returns the dimension of the indexed vectors.
-	D() int
-
-	// IsTrained returns true if the index has been trained or does not require
-	// training.
-	IsTrained() bool
-
-	// Ntotal returns the number of indexed vectors.
-	Ntotal() int64
-
-	// MetricType returns the metric type of the index.
-	MetricType() int
-
-	// Train trains the index on a representative set of vectors.
-	Train(x []float32) error
-
-	// Add adds vectors to the index.
-	Add(x []float32) error
-
-	// AddWithIDs is like Add, but stores xids instead of sequential IDs.
-	AddWithIDs(x []float32, xids []int64) error
+	Dim() int                                   // Dim returns the dimension of the indexed vectors.
+	IsTrained() bool                            // IsTrained returns true if the index has been trained or does not require training.
+	Ntotal() int64                              // Ntotal returns the number of indexed vectors.
+	MetricType() int                            // MetricType returns the metric type of the index.
+	Train(x []float32) error                    // Train trains the index on a representative set of vectors.
+	Add(x []float32) error                      // Add adds vectors to the index.
+	AddWithIDs(x []float32, xids []int64) error // AddWithIDs is like Add, but stores xids instead of sequential IDs.
 
 	// Search queries the index with the vectors in x.
 	// Returns the IDs of the k nearest neighbors for each query vector and the
@@ -45,15 +31,13 @@ type Index interface {
 	// Returns all vectors with distance < radius.
 	RangeSearch(x []float32, radius float32) (*RangeSearchResult, error)
 
-	// Reset removes all vectors from the index.
-	Reset() error
+	Reset() error // Reset removes all vectors from the index.
 
 	// RemoveIDs removes the vectors specified by sel from the index.
 	// Returns the number of elements removed and error.
 	RemoveIDs(sel *IDSelector) (int, error)
 
-	// Delete frees the memory used by the index.
-	Delete()
+	Delete() // Delete frees the memory used by the index.
 
 	cPtr() *C.FaissIndex
 }
@@ -66,7 +50,7 @@ func (idx *faissIndex) cPtr() *C.FaissIndex {
 	return idx.idx
 }
 
-func (idx *faissIndex) D() int {
+func (idx *faissIndex) Dim() int {
 	return int(C.faiss_Index_d(idx.idx))
 }
 
@@ -83,7 +67,7 @@ func (idx *faissIndex) MetricType() int {
 }
 
 func (idx *faissIndex) Train(x []float32) error {
-	n := len(x) / idx.D()
+	n := len(x) / idx.Dim()
 	if c := C.faiss_Index_train(idx.idx, C.idx_t(n), (*C.float)(&x[0])); c != 0 {
 		return getLastError()
 	}
@@ -91,7 +75,7 @@ func (idx *faissIndex) Train(x []float32) error {
 }
 
 func (idx *faissIndex) Add(x []float32) error {
-	n := len(x) / idx.D()
+	n := len(x) / idx.Dim()
 	if c := C.faiss_Index_add(idx.idx, C.idx_t(n), (*C.float)(&x[0])); c != 0 {
 		return getLastError()
 	}
@@ -99,7 +83,7 @@ func (idx *faissIndex) Add(x []float32) error {
 }
 
 func (idx *faissIndex) AddWithIDs(x []float32, xids []int64) error {
-	n := len(x) / idx.D()
+	n := len(x) / idx.Dim()
 	if c := C.faiss_Index_add_with_ids(
 		idx.idx,
 		C.idx_t(n),
@@ -114,7 +98,7 @@ func (idx *faissIndex) AddWithIDs(x []float32, xids []int64) error {
 func (idx *faissIndex) Search(x []float32, k int64) (
 	distances []float32, labels []int64, err error,
 ) {
-	n := len(x) / idx.D()
+	n := len(x) / idx.Dim()
 	distances = make([]float32, int64(n)*k)
 	labels = make([]int64, int64(n)*k)
 	if c := C.faiss_Index_search(
@@ -133,7 +117,7 @@ func (idx *faissIndex) Search(x []float32, k int64) (
 func (idx *faissIndex) RangeSearch(x []float32, radius float32) (
 	*RangeSearchResult, error,
 ) {
-	n := len(x) / idx.D()
+	n := len(x) / idx.Dim()
 	var rsr *C.FaissRangeSearchResult
 	if c := C.faiss_RangeSearchResult_new(&rsr, C.idx_t(n)); c != 0 {
 		return nil, getLastError()
