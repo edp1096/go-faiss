@@ -11,8 +11,6 @@
 #ifndef FAISS_GPU_RESOURCES_C_H
 #define FAISS_GPU_RESOURCES_C_H
 
-#include <cublas_v2.h>
-#include <cuda_runtime_api.h>
 #include "../faiss_c.h"
 
 #ifdef __cplusplus
@@ -31,30 +29,30 @@ FAISS_DECLARE_DESTRUCTOR(GpuResources)
 FAISS_C_API int faiss_GpuResources_initializeForDevice(FaissGpuResources*, int);
 
 /// Returns the cuBLAS handle that we use for the given device
-FAISS_C_API int faiss_GpuResources_getBlasHandle(FaissGpuResources*, int, cublasHandle_t*);
+// int faiss_GpuResources_getBlasHandle(FaissGpuResources*, int, cublasHandle_t*);
 
 /// Returns the stream that we order all computation on for the
 /// given device
-FAISS_C_API int faiss_GpuResources_getDefaultStream(FaissGpuResources*, int, cudaStream_t*);
+// int faiss_GpuResources_getDefaultStream(FaissGpuResources*, int, cudaStream_t*);
 
 /// Returns the available CPU pinned memory buffer
 FAISS_C_API int faiss_GpuResources_getPinnedMemory(FaissGpuResources*, void**, size_t*);
 
 /// Returns the stream on which we perform async CPU <-> GPU copies
-FAISS_C_API int faiss_GpuResources_getAsyncCopyStream(
-        FaissGpuResources*,
-        int,
-        cudaStream_t*);
+// int faiss_GpuResources_getAsyncCopyStream(
+//         FaissGpuResources*,
+//         int,
+//         cudaStream_t*);
 
 /// Calls getBlasHandle with the current device
-FAISS_C_API int faiss_GpuResources_getBlasHandleCurrentDevice(
-        FaissGpuResources*,
-        cublasHandle_t*);
+// int faiss_GpuResources_getBlasHandleCurrentDevice(
+//         FaissGpuResources*,
+//         cublasHandle_t*);
 
 /// Calls getDefaultStream with the current device
-FAISS_C_API int faiss_GpuResources_getDefaultStreamCurrentDevice(
-        FaissGpuResources*,
-        cudaStream_t*);
+// int faiss_GpuResources_getDefaultStreamCurrentDevice(
+//         FaissGpuResources*,
+//         cudaStream_t*);
 
 /// Synchronizes the CPU with respect to the default stream for the
 /// given device
@@ -65,9 +63,9 @@ FAISS_C_API int faiss_GpuResources_syncDefaultStream(FaissGpuResources*, int);
 FAISS_C_API int faiss_GpuResources_syncDefaultStreamCurrentDevice(FaissGpuResources*);
 
 /// Calls getAsyncCopyStream for the current device
-FAISS_C_API int faiss_GpuResources_getAsyncCopyStreamCurrentDevice(
-        FaissGpuResources*,
-        cudaStream_t*);
+// int faiss_GpuResources_getAsyncCopyStreamCurrentDevice(
+//         FaissGpuResources*,
+//         cudaStream_t*);
 
 FAISS_DECLARE_CLASS(GpuResourcesProvider)
 
