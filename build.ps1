@@ -1,5 +1,5 @@
 $useGPU = "ON"
-
+$threadCount = 8
 
 $startTime = Get-Date
 
@@ -50,7 +50,7 @@ cd faiss
 # 61-real;75-real;86-real ~= 320MB
 cmake -B ../build . `
 -DCMAKE_CXX_FLAGS="/std:c++17 /EHsc /wd4819" -DBUILD_TESTING=OFF `
--DBUILD_SHARED_LIBS="OFF" `
+-DBUILD_SHARED_LIBS="ON" `
 -DFAISS_ENABLE_C_API="ON" -DFAISS_ENABLE_PYTHON="OFF" `
 -DBLA_VENDOR=OpenBLAS     -DBLAS_LIBRARIES="$openblasLIB" -DLAPACK_LIBRARIES="$openblasLIB" `
 -DFAISS_OPT_LEVEL="avx2"  -DFAISS_ENABLE_GPU="$useGPU" `
