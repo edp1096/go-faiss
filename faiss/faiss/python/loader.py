@@ -9,7 +9,6 @@ import subprocess
 import logging
 import os
 
-
 def supported_instruction_sets():
     """
     Returns the set of supported CPU features, see
@@ -47,6 +46,9 @@ def supported_instruction_sets():
 
 
 logger = logging.getLogger(__name__)
+
+cuda_path = os.getenv("CUDA_PATH")
+os.add_dll_directory(os.path.join(cuda_path, "bin"))
 
 has_AVX2 = "AVX2" in supported_instruction_sets()
 if has_AVX2:

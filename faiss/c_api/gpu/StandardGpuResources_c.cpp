@@ -8,6 +8,8 @@
 // Copyright 2004-present Facebook. All Rights Reserved.
 // -*- c++ -*-
 
+#include <cuda_runtime_api.h>
+
 #include "StandardGpuResources_c.h"
 #include <faiss/gpu/StandardGpuResources.h>
 #include "macros_impl.h"

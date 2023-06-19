@@ -21,7 +21,7 @@ extern "C" {
 /** Build and index with the sequence of processing steps described in
  *  the string.
  */
-int faiss_index_factory(
+FAISS_C_API int faiss_index_factory(
         FaissIndex** p_index,
         int d,
         const char* description,

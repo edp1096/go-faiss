@@ -1,5 +1,9 @@
+//go:build windows && !cuda
+// +build windows,!cuda
+
 package faiss
 
+// #cgo LDFLAGS: -L. -lfaiss_c
 /*
 #include <stdlib.h>
 #include <faiss/c_api/Index_c.h>

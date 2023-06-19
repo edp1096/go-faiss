@@ -25,12 +25,12 @@ extern "C" {
  * This is equivalent to `faiss::write_index` when a file descriptor is
  * provided.
  */
-int faiss_write_index(const FaissIndex* idx, FILE* f);
+FAISS_C_API int faiss_write_index(const FaissIndex* idx, FILE* f);
 
 /** Write index to a file.
  * This is equivalent to `faiss::write_index` when a file path is provided.
  */
-int faiss_write_index_fname(const FaissIndex* idx, const char* fname);
+FAISS_C_API int faiss_write_index_fname(const FaissIndex* idx, const char* fname);
 
 #define FAISS_IO_FLAG_MMAP 1
 #define FAISS_IO_FLAG_READ_ONLY 2
@@ -38,24 +38,24 @@ int faiss_write_index_fname(const FaissIndex* idx, const char* fname);
 /** Read index from a file.
  * This is equivalent to `faiss:read_index` when a file descriptor is given.
  */
-int faiss_read_index(FILE* f, int io_flags, FaissIndex** p_out);
+FAISS_C_API int faiss_read_index(FILE* f, int io_flags, FaissIndex** p_out);
 
 /** Read index from a file.
  * This is equivalent to `faiss:read_index` when a file path is given.
  */
-int faiss_read_index_fname(const char* fname, int io_flags, FaissIndex** p_out);
+FAISS_C_API int faiss_read_index_fname(const char* fname, int io_flags, FaissIndex** p_out);
 
 /** Write index to a file.
  * This is equivalent to `faiss::write_index_binary` when a file descriptor is
  * provided.
  */
-int faiss_write_index_binary(const FaissIndexBinary* idx, FILE* f);
+FAISS_C_API int faiss_write_index_binary(const FaissIndexBinary* idx, FILE* f);
 
 /** Write index to a file.
  * This is equivalent to `faiss::write_index_binary` when a file path is
  * provided.
  */
-int faiss_write_index_binary_fname(
+FAISS_C_API int faiss_write_index_binary_fname(
         const FaissIndexBinary* idx,
         const char* fname);
 
@@ -63,12 +63,12 @@ int faiss_write_index_binary_fname(
  * This is equivalent to `faiss:read_index_binary` when a file descriptor is
  * given.
  */
-int faiss_read_index_binary(FILE* f, int io_flags, FaissIndexBinary** p_out);
+FAISS_C_API int faiss_read_index_binary(FILE* f, int io_flags, FaissIndexBinary** p_out);
 
 /** Read index from a file.
  * This is equivalent to `faiss:read_index_binary` when a file path is given.
  */
-int faiss_read_index_binary_fname(
+FAISS_C_API int faiss_read_index_binary_fname(
         const char* fname,
         int io_flags,
         FaissIndexBinary** p_out);

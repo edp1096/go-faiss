@@ -44,10 +44,10 @@ FAISS_C_API int faiss_StandardGpuResources_setPinnedMemory(
         size_t size);
 
 /// Called to change the stream for work ordering
-FAISS_C_API int faiss_StandardGpuResources_setDefaultStream(
-        FaissStandardGpuResources*,
-        int device,
-        cudaStream_t stream);
+// int faiss_StandardGpuResources_setDefaultStream(
+//         FaissStandardGpuResources*,
+//         int device,
+//         cudaStream_t stream);
 
 /// Called to change the work ordering streams to the null stream
 /// for all devices

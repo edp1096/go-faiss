@@ -8,6 +8,9 @@
 // Copyright 2004-present Facebook. All Rights Reserved.
 // -*- c++ -*-
 
+#include <cublas_v2.h>
+#include <cuda_runtime_api.h>
+
 #include "GpuAutoTune_c.h"
 #include <faiss/Index.h>
 #include <faiss/gpu/GpuAutoTune.h>

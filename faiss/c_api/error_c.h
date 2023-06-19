@@ -15,6 +15,8 @@
 extern "C" {
 #endif
 
+#include "api_declarations.h"
+
 /// An error code which depends on the exception thrown from the previous
 /// operation. See `faiss_get_last_error` to retrieve the error message.
 typedef enum FaissErrorCode {
@@ -33,7 +35,7 @@ typedef enum FaissErrorCode {
  * The given pointer is only invalid until another Faiss function is
  * called.
  */
-const char* faiss_get_last_error();
+FAISS_C_API const char* faiss_get_last_error();
 
 #ifdef __cplusplus
 }
