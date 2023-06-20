@@ -47,20 +47,26 @@ type Index interface {
 
 	cPtr() *C.FaissIndex
 
-	cGpuResource() *C.FaissStandardGpuResources
+	cGpuResource() []*C.FaissStandardGpuResources
+	cGpuMultipleClonerOptions() *C.FaissGpuMultipleClonerOptions
 }
 
 type faissIndex struct {
-	idx      *C.FaissIndex
-	resource *C.FaissStandardGpuResources
+	idx       *C.FaissIndex
+	resources []*C.FaissStandardGpuResources
+	options   *C.FaissGpuMultipleClonerOptions
+}
+
+func (idx *faissIndex) cGpuResource() []*C.FaissStandardGpuResources {
+	return idx.resources
+}
+
+func (idx *faissIndex) cGpuMultipleClonerOptions() *C.FaissGpuMultipleClonerOptions {
+	return idx.options
 }
 
 func (idx *faissIndex) cPtr() *C.FaissIndex {
 	return idx.idx
-}
-
-func (idx *faissIndex) cGpuResource() *C.FaissStandardGpuResources {
-	return idx.resource
 }
 
 func (idx *faissIndex) Dim() int {

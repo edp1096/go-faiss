@@ -1,10 +1,10 @@
-//go:build gpu
-// +build gpu
+//go:build windows && cuda
+// +build windows,cuda
 
 package faiss
 
+// #cgo LDFLAGS: -L. -lfaiss_c_cuda
 /*
-
 #include <stddef.h>
 #include <faiss/c_api/gpu/StandardGpuResources_c.h>
 #include <faiss/c_api/gpu/GpuAutoTune_c.h>
@@ -52,7 +52,12 @@ func TransferToAllGPUs(index Index, gpuIndexes []int, sharding bool) (Index, err
 		if c != 0 {
 			return nil, errors.New("error on init gpu %v")
 		}
+		c = C.faiss_StandardGpuResources_setDefaultNullStreamAllDevices(gpuResources[i])
+		if c != 0 {
+			return nil, errors.New("error on init gpu %v")
+		}
 	}
+
 	var exitCode C.int
 	if sharding {
 		exitCode = C.faiss_index_cpu_to_gpu_multiple_sharding(

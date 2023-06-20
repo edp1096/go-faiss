@@ -58,6 +58,14 @@ FAISS_C_API int faiss_index_cpu_to_gpu_multiple_with_options(
         const FaissGpuMultipleClonerOptions* options,
         FaissGpuIndex** p_out);
 
+FAISS_C_API int faiss_index_cpu_to_gpu_multiple_sharding(
+        FaissGpuResourcesProvider* const* providers_vec,
+        size_t providers_vec_size,
+        const int* devices,
+        size_t devices_size,
+        const FaissIndex* index,
+        FaissGpuIndex** p_out);
+
 /// parameter space and setters for GPU indexes
 FAISS_DECLARE_CLASS_INHERITED(GpuParameterSpace, ParameterSpace)
 

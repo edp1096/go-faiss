@@ -114,3 +114,30 @@ int faiss_index_cpu_to_gpu_multiple_with_options(
     }
     CATCH_AND_HANDLE
 }
+
+int faiss_index_cpu_to_gpu_multiple_sharding(
+        FaissGpuResourcesProvider* const* providers_vec,
+        size_t providers_vec_size,
+        const int* devices,
+        size_t devices_size,
+        const FaissIndex* index,
+        FaissGpuIndex** p_out) {
+    try {
+        auto* options = new GpuMultipleClonerOptions();
+        options->shard=true;
+        std::vector<GpuResourcesProvider*> res(providers_vec_size);
+        for (auto i = 0u; i < providers_vec_size; ++i) {
+            res[i] = reinterpret_cast<GpuResourcesProvider*>(providers_vec[i]);
+        }
+
+        std::vector<int> dev(devices, devices + devices_size);
+
+        auto gpu_index = faiss::gpu::index_cpu_to_gpu_multiple(
+                res,
+                dev,
+                reinterpret_cast<const Index*>(index),
+                options);
+        *p_out = reinterpret_cast<FaissGpuIndex*>(gpu_index);
+    }
+    CATCH_AND_HANDLE
+}
