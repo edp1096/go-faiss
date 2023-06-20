@@ -58,12 +58,12 @@ cd faiss
 # 90 / H100
 # 61-real;75-real;86-real ~= 320MB
 cmake -B ../build . `
--DCMAKE_CXX_FLAGS="/std:c++17 /EHsc /wd4819" -DBUILD_TESTING=OFF `
--DBUILD_SHARED_LIBS="ON" `
--DFAISS_ENABLE_C_API="ON" -DFAISS_ENABLE_PYTHON="OFF" `
--DBLA_VENDOR=OpenBLAS     -DBLAS_LIBRARIES="$openblasLIB" -DLAPACK_LIBRARIES="$openblasLIB" `
--DFAISS_OPT_LEVEL="avx2"  -DFAISS_ENABLE_GPU="$useGPU" `
--DCMAKE_CUDA_ARCHITECTURES="86-real"
+    -DCMAKE_CXX_FLAGS="/std:c++17 /EHsc /wd4819" -DBUILD_TESTING=OFF `
+    -DBUILD_SHARED_LIBS="ON" `
+    -DFAISS_ENABLE_C_API="ON" -DFAISS_ENABLE_PYTHON="OFF" `
+    -DBLA_VENDOR=OpenBLAS     -DBLAS_LIBRARIES="$openblasLIB" -DLAPACK_LIBRARIES="$openblasLIB" `
+    -DFAISS_OPT_LEVEL="avx2"  -DFAISS_ENABLE_GPU="$useGPU" `
+    -DCMAKE_CUDA_ARCHITECTURES="86-real"
 
 cd ../build
 copy-item -force $openblasROOT/lib/libopenblas.lib faiss/
