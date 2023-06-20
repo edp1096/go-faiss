@@ -2,6 +2,8 @@ Modification for windows.
 
 For GPU, RTX30 series and CUDA12.1 only
 
+* Current subtree target: faiss-1.7.4
+
 ## Usage
 
 * [Example](/dist/hello)
